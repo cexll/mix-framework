@@ -1,5 +1,7 @@
 <?php
 
+use Mix\Framework\Container\Config;
+
 if (!function_exists('env')) {
     /**
      * @param string $key
@@ -38,8 +40,16 @@ if (!function_exists('env')) {
 }
 
 if (!function_exists('dd')) {
-    function dd(...$var) {
+    function dd(...$var)
+    {
         var_dump($var);
         exit();
+    }
+}
+
+if (!function_exists('config')) {
+    function config($key, $default = null)
+    {
+        return Config::instance()->get($key, $default);
     }
 }

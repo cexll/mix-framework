@@ -17,9 +17,10 @@ class Application implements ServerInterface
     /**
      * @throws ServerException
      */
-    public function __construct($server)
+    public function __construct()
     {
-        $this->server = match ($server) {
+        $serverName = \config('server')['name'];
+        $this->server = match ($serverName) {
             self::SWOOLE_SERVER => new SwooleServer(),
             self::SWOOLE_COUTINE_SERVER => new SwooleCoutineServer(),
             self::CLI_SERVER => new CliServer(),

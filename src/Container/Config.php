@@ -8,7 +8,6 @@ namespace Mix\Framework\Container;
  */
 class Config
 {
-
     /**
      * @var \Noodlehaus\Config
      */
@@ -16,7 +15,7 @@ class Config
 
     public static function init(): void
     {
-        self::$instance = new \Noodlehaus\Config(__DIR__ . '/../../conf');
+        self::$instance = new \Noodlehaus\Config(BASE_PATH . '/conf/');
     }
 
     /**
@@ -29,5 +28,4 @@ class Config
         }
         return self::$instance;
     }
-
 }

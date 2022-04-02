@@ -2,7 +2,7 @@
 
 namespace Mix\Framework\Server;
 
-
+use Mix\Framework\Container\Config;
 use Mix\Framework\Container\Logger;
 use Mix\Vega\Abort;
 use Mix\Vega\Context;
@@ -27,12 +27,13 @@ abstract class AbstractServer implements ServerInterface
 
     public function __construct()
     {
-        $this->host = env('SERVER_HOST', '0.0.0.0');
-        $this->port = env('SERVER_PORT', 9501);
-        $this->mode = env('SERVER_MODE', SWOOLE_PROCESS);
-        $this->enable_coroutine = env('ENABLE_COROUTINE', false);
-        $this->worker_num = env('WORKER_NUM', 1);
-        $this->debug = env('APP_DEBUG', false);
+        $server = \config('server');
+        $this->host = $server['host'];
+        $this->port = $server['port'];
+        $this->mode = $server['mode'];
+        $this->enable_coroutine = $server['enable_coroutine'];
+        $this->worker_num = $server['worker_num'];
+        $this->debug = $server['debug'];
 
         $this->vega = new Engine();
         // 500
