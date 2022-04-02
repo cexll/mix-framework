@@ -1,6 +1,5 @@
 <?php
 
-use Mix\Framework\Container\Config;
 
 if (!function_exists('env')) {
     /**
@@ -50,7 +49,7 @@ if (!function_exists('dd')) {
 if (!function_exists('config')) {
     function config($key, $default = null)
     {
-        return Config::instance()->get($key, $default);
+        return \Mix\Framework\Container\Config::instance()->get($key, $default);
     }
 }
 
@@ -58,5 +57,19 @@ if (!function_exists('logger')) {
     function logger(): \Monolog\Logger
     {
         return \Mix\Framework\Container\Logger::instance();
+    }
+}
+
+if (!function_exists('db')) {
+    function db(): \Mix\Database\Database
+    {
+        return \Mix\Framework\Container\DB::instance();
+    }
+}
+
+if (!function_exists('redis')) {
+    function redis(): \Mix\Redis\Redis
+    {
+        return \Mix\Framework\Container\RDS::instance();
     }
 }
