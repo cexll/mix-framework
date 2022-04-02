@@ -13,11 +13,8 @@ class RDS
 
     public static function init(): void
     {
-        $host = env('REDIS_HOST');
-        $port = env('REDIS_PORT');
-        $password = env('REDIS_PASSWORD');
-        $database = env('REDIS_DATABASE');
-        $rds = new Redis($host, $port, $password, $database);
+        $redis = config('redis');
+        $rds = new Redis($redis['host'], $redis['port'], $redis['password'], $redis['database']);
         APP_DEBUG and $rds->setLogger(new RDSLogger());
         self::$instance = $rds;
     }
@@ -33,7 +30,7 @@ class RDS
         return self::$instance;
     }
 
-    public static function enableCoroutine()
+    public static function enableCoroutine(): void
     {
         $maxOpen = 30;        // 最大开启连接数
         $maxIdle = 10;        // 最大闲置连接数

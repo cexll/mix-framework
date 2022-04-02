@@ -4,19 +4,20 @@ namespace Mix\Framework\Server;
 
 use App\Error;
 use Mix\Framework\Container\Logger;
+use Mix\Init\StaticInit;
 
 class SwooleServer extends AbstractServer
 {
-    public function run()
+    public function run(): void
     {
         $http = new \Swoole\Http\Server($this->host, $this->port, $this->mode);
         $http->on('Request', $this->vega->handler());
         $http->on('WorkerStart', function ($server, $workerId) {
             // swoole 协程不支持 set_exception_handler 需要手动捕获异常
             try {
-//                StaticInit::finder(__DIR__ . '/../src/Container')->exec('init');
-//                \Mix\Framework\Container\DB::enableCoroutine();
-//                \Mix\Framework\Container\RDS::enableCoroutine();
+                StaticInit::finder(__DIR__ . '/../Container')->exec('init');
+                \Mix\Framework\Container\DB::enableCoroutine();
+                \Mix\Framework\Container\RDS::enableCoroutine();
             } catch (\Throwable $ex) {
                 Error::handle($ex);
             }

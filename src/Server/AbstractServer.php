@@ -2,7 +2,6 @@
 
 namespace Mix\Framework\Server;
 
-use Mix\Framework\Container\Config;
 use Mix\Framework\Container\Logger;
 use Mix\Vega\Abort;
 use Mix\Vega\Context;

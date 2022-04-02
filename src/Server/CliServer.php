@@ -4,7 +4,7 @@ namespace Mix\Framework\Server;
 
 class CliServer extends AbstractServer
 {
-    public function run()
+    public function run(): void
     {
         $this->vega->run();
     }

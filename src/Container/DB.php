@@ -13,10 +13,8 @@ class DB
 
     public static function init(): void
     {
-        $dsn = env('DATABASE_DSN');
-        $username = env('DATABASE_USERNAME');
-        $password = env('DATABASE_PASSWORD');
-        $db = new Database($dsn, $username, $password);
+        $database = config('database');
+        $db = new Database("{$database['driver']}:host={$database['host']};port={$database['port']};charset={$database['charset']};dbname={$database['dbname']}", $database['username'], $database['password']);
         APP_DEBUG and $db->setLogger(new DBLogger());
         self::$instance = $db;
     }
@@ -32,7 +30,7 @@ class DB
         return self::$instance;
     }
 
-    public static function enableCoroutine()
+    public static function enableCoroutine(): void
     {
         $maxOpen = 30;        // 最大开启连接数
         $maxIdle = 10;        // 最大闲置连接数

@@ -3,15 +3,16 @@
 namespace Mix\Framework\Server;
 
 use Mix\Framework\Container\Logger;
+use Mix\Init\StaticInit;
 
 class WorkerManServer extends AbstractServer
 {
-    public function run()
+    public function run(): void
     {
         $socket_name = "http://{$this->host}:{$this->port}";
         $server = new \Workerman\Worker($socket_name);
         $server->onWorkerStart = function ($worker) {
-            //     StaticInit::finder(__DIR__ . '/../src/Container')->exec('init');
+            StaticInit::finder(__DIR__ . '/../Container')->exec('init');
         };
         $server->onMessage = $this->vega->handler();
         $server->count = $this->worker_num;

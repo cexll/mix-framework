@@ -4,19 +4,19 @@ namespace Mix\Framework\Server;
 
 use Mix\Init\StaticInit;
 
-class SwooleCoutineServer extends AbstractServer
+class SwooleCoroutineServer extends AbstractServer
 {
-    public function run()
+    public function run(): void
     {
         \Swoole\Coroutine\run(function () {
-            StaticInit::finder(BASE_PATH . '/Framework/src/Container')->exec('init');
+            StaticInit::finder(__DIR__ . '/../Container')->exec('init');
             \Mix\Framework\Container\DB::enableCoroutine();
             \Mix\Framework\Container\RDS::enableCoroutine();
             $server = new \Swoole\Coroutine\Http\Server($this->host, $this->port, false, false);
             $server->handle('/', $this->vega->handler());
 
             foreach ([SIGHUP, SIGINT, SIGTERM] as $signal) {
-                \Swoole\Process::signal($signal, function () use ($server) {
+                \Swoole\Process::signal($signal, static function () use ($server) {
                     \logger()->info('Shutdown swoole coroutine server');
                     $server->shutdown();
                     \Mix\Framework\Container\Shutdown::trigger();
