@@ -4,7 +4,7 @@
 
 [x] 通过`php bin/mix.php start` 启动服务(可通过配置文件配置服务)
 
-[ ] 接入config.php配置服务
+[x] 接入config.php配置服务
 
 [ ] 接入一把梭API
 
