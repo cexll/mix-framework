@@ -9,7 +9,7 @@ class RDS
     /**
      * @var Redis
      */
-    private static $instance;
+    private static Redis $instance;
 
     public static function init(): void
     {
@@ -18,7 +18,7 @@ class RDS
         $password = env('REDIS_PASSWORD');
         $database = env('REDIS_DATABASE');
         $rds = new Redis($host, $port, $password, $database);
-//        APP_DEBUG and $rds->setLogger(new RDSLogger());
+        APP_DEBUG and $rds->setLogger(new RDSLogger());
         self::$instance = $rds;
     }
 

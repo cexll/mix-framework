@@ -53,3 +53,10 @@ if (!function_exists('config')) {
         return Config::instance()->get($key, $default);
     }
 }
+
+if (!function_exists('logger')) {
+    function logger(): \Monolog\Logger
+    {
+        return \Mix\Framework\Container\Logger::instance();
+    }
+}

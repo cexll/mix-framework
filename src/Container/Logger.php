@@ -20,7 +20,7 @@ class Logger implements HandlerInterface
         $rotatingFileHandler = new RotatingFileHandler(BASE_PATH . '/runtime/logs/mix.log', 7);
         $rotatingFileHandler->setFormatter(new LineFormatter("[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n", 'Y-m-d H:i:s.u'));
         $logger->pushHandler($rotatingFileHandler);
-        $logger->pushHandler(new Logger());
+        $logger->pushHandler(new self());
         self::$instance = $logger;
     }
 

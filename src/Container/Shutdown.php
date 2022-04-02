@@ -11,7 +11,7 @@ class Shutdown
     /**
      * @var \Closure[]
      */
-    private static $onShutdown = [];
+    private static array $onShutdown = [];
 
     /**
      * @param \Closure $func
