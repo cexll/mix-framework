@@ -1,0 +1,34 @@
+{
+  "name": "mix/framework",
+  "description": "mixphp framework",
+  "type": "library",
+  "keywords": [
+    "mix",
+    "swoole",
+    "coroutine",
+    "redis",
+    "connection-pool"
+  ],
+  "homepage": "https://openmix.org/mix-php",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "cexll",
+      "email": "evanxian9@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mix\\Framework\\": "src/"
+    },
+    "files": [
+      "src/functions.php"
+    ]
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.0.0"
+  }
+}
