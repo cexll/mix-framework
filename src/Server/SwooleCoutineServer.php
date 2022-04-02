@@ -6,7 +6,6 @@ use Mix\Framework\Container\Logger;
 
 class SwooleCoutineServer extends AbstractServer
 {
-
     public function run()
     {
         \Swoole\Coroutine\run(function () {

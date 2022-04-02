@@ -41,5 +41,4 @@ class DB
         self::instance()->startPool($maxOpen, $maxIdle, $maxLifetime, $waitTimeout);
         \Swoole\Runtime::enableCoroutine(); // 必须放到最后，防止触发协程调度导致异常
     }
-
 }

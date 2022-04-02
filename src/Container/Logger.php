@@ -12,7 +12,6 @@ use Monolog\Handler\RotatingFileHandler;
  */
 class Logger implements HandlerInterface
 {
-
     private static $instance;
 
     public static function init(): void
@@ -62,5 +61,4 @@ class Logger implements HandlerInterface
     {
         // TODO: Implement close() method.
     }
-
 }

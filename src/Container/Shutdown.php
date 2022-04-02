@@ -8,7 +8,6 @@ namespace Mix\Framework\Container;
  */
 class Shutdown
 {
-
     /**
      * @var \Closure[]
      */
@@ -28,5 +27,4 @@ class Shutdown
             $func();
         }
     }
-
 }
