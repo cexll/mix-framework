@@ -3,6 +3,7 @@
 namespace Mix\Framework\Database;
 
 use Mix\Database\ConnectionInterface;
+use Mix\Framework\Redis\Cache;
 
 abstract class AbstractModel implements ModelInterface
 {
@@ -13,7 +14,13 @@ abstract class AbstractModel implements ModelInterface
 
     public function getOneId(int $id, array $columns = ['*']): array
     {
-        $data = db()->table($this->table)->where("{$this->primaryKey} = ?", $id)->select(implode(',', $columns))->first();
+        $columns = implode(',', $columns);
+        $key = __FUNCTION__ . "id:{$id},columns:{$columns}";
+        $data = Cache::getOrSet($key, function () use ($id, $columns) {
+            $data = db()->table($this->table)->where("{$this->primaryKey} = ?", $id)->select($columns)->first();
+            return  json_encode((array)$data);
+        });
+        $data = json_decode($data);
         return (array)$data;
     }
 
@@ -37,7 +44,14 @@ abstract class AbstractModel implements ModelInterface
     public function getPageList(array $where = [], array $columns = ['*'], array $options = []): array
     {
         $db = db()->table($this->table);
-        return $this->optionWhere($db, $where, $options)->select(implode($columns))->first();
+        $offset = $options['page'] ?? 1;
+
+        $limit = $options['size'] ?? 15;
+        return $this->optionWhere($db, $where, $options)
+            ->select(implode($columns))
+            ->offset(($offset - 1) * $limit)
+            ->limit($limit)
+            ->get();
     }
 
     public function updateById(int $id, array $data): int
