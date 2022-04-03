@@ -26,6 +26,7 @@ abstract class AbstractModel implements ModelInterface
 
     public function findByWhere(array $where = [], array $columns = ['*'], array $options = []): array
     {
+        // TODO cache
         $db = db()->table($this->table);
         return $this->optionWhere($db, $where, $options)->select(implode($columns))->first();
     }
@@ -56,32 +57,38 @@ abstract class AbstractModel implements ModelInterface
 
     public function updateById(int $id, array $data): int
     {
+        // TODO 删除缓存
         return db()->table($this->table)->where("{$this->primaryKey} = ?", $id)->updates($data)->rowCount();
     }
 
     public function updateByIds(array $ids, array $data): int
     {
+        // TODO 删除缓存
         return db()->table($this->table)->where("{$this->primaryKey} IN {?}", $ids)->updates($data)->rowCount();
     }
 
     public function updateByWhere(array $where, array $data): int
     {
+        // TODO 删除缓存
         $db = db()->table($this->table);
         return $this->optionWhere($db, $where, [])->updates($data)->rowCount();
     }
 
     public function deleteOne(int $id): int
     {
+        // TODO 删除缓存
         return db()->table($this->table)->where("{$this->primaryKey} = ?", $id)->delete()->rowCount();
     }
 
     public function deleteAll(array $ids): int
     {
+        // TODO 删除缓存
         return db()->table($this->table)->where("{$this->primaryKey} IN {?}", $ids)->delete()->rowCount();
     }
 
     public function deleteByWhere(array $where): int
     {
+        // TODO 删除缓存
         $db = db()->table($this->table);
         return $this->optionWhere($db, $where, [])->delete()->rowCount();
     }
