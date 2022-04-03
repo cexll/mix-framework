@@ -6,7 +6,6 @@ use Mix\Framework\Server\Swow\Http\Server;
 
 class SwowServer extends AbstractServer
 {
-
     public function run(): void
     {
         $server = new Server();

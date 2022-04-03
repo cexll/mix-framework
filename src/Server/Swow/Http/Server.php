@@ -60,7 +60,7 @@ class Server extends HttpServer
                                 }
                             }
                         } catch (\Throwable $exception) {
-                             \logger()->error((string) $exception);
+                            \logger()->error((string) $exception);
                         } finally {
                             $connection->close();
                         }
