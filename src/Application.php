@@ -8,6 +8,7 @@ use Mix\Framework\Server\CliServer;
 use Mix\Framework\Server\ServerInterface;
 use Mix\Framework\Server\SwooleCoroutineServer;
 use Mix\Framework\Server\SwooleServer;
+use Mix\Framework\Server\SwowServer;
 use Mix\Framework\Server\WorkerManServer;
 
 class Application implements ServerInterface
@@ -25,6 +26,7 @@ class Application implements ServerInterface
             self::SWOOLE_COROUTINE_SERVER => new SwooleCoroutineServer(),
             self::CLI_SERVER => new CliServer(),
             self::WORKER_MAN_SERVER => new WorkerManServer(),
+            self::SWOW_SERVER => new SwowServer(),
             default => throw new ServerException(),
         };
     }

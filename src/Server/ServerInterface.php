@@ -12,5 +12,7 @@ interface ServerInterface
 
     public const WORKER_MAN_SERVER = 4;
 
+    public const SWOW_SERVER = 5;
+
     public function run(): void;
 }
