@@ -14,5 +14,7 @@ interface ServerInterface
 
     public const SWOW_SERVER = 5;
 
+    public const SWOOLE_COROUTINE_POOL_SERVER = 6;
+
     public function run(): void;
 }
